@@ -30,6 +30,8 @@ namespace Opgave5TCP
             new Bog("Resul", 15, "HJDOSKLDMNI25", "Deez nuts")
         };
 
+
+
         public void Start()
         {
             TcpListener socket = new TcpListener(IPAddress.Loopback, 4646);
@@ -71,13 +73,14 @@ namespace Opgave5TCP
             using (StreamReader reader = new StreamReader(tempsocket.GetStream()))
             using (StreamWriter writer = new StreamWriter(tempsocket.GetStream()))
             {
+                
 
                 while (true)
                 {
                     string readString = reader.ReadLine();
-                    string[] myline = readString.Split(" ");
+                    string readString2 = reader.ReadLine();
 
-                    if (myline[0] == "Hent" && myline[1] == "Alle")
+                    if (readString == "HentAlle")
                     {
                         foreach (Bog bok in books)
                         {
@@ -91,15 +94,15 @@ namespace Opgave5TCP
 
 
                     }
-                    else if (myline[0] == "Hent" && myline[1].Length == 13)
+                    
+                    else if (readString == "Hent")
                     {
-                        Bog bogJson = sortList(myline[1]);
-                        string jsonSend = JsonConvert.SerializeObject(bogJson);
+                        string jsonSend = JsonConvert.SerializeObject(books.Find(i => i.Isbn13 == readString2));
                         Console.WriteLine(jsonSend);
                         writer.WriteLine(jsonSend);
 
                     }
-                    else if (myline[0] == "Gem")
+                    else if (readString == "Gem")
                     {
 
                         string sr = reader.ReadLine();
