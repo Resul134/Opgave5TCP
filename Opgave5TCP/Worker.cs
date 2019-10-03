@@ -128,12 +128,12 @@ namespace Opgave5TCP
             
         }
 
-        public Bog sortList(string myarray)
+        public Bog sortList(string mystring)
         {
             Bog mybog = new Bog();
             foreach (var bog in books)
             {
-                if (bog.Isbn13 == myarray)
+                if (bog.Isbn13 == mystring)
                 {
                     mybog = bog;
                 }
